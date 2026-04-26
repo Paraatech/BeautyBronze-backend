@@ -48,6 +48,13 @@ app.post("/api/message", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Backend running ✔");
 });
-
+app.get("/api/orders", async (req, res) => {
+    try {
+        const orders = await Order.find().sort({ time: -1 });
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));
