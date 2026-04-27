@@ -56,5 +56,13 @@ app.get("/api/orders", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+app.delete("/api/orders/:id", async (req, res) => {
+  try {
+    await Order.findByIdAndDelete(req.params.id);
+    res.json({ message: "Order deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));
